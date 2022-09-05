@@ -6,15 +6,14 @@ plugins {
 ext {
     nameGroup = 'app.entao.web'
     nameAF = 'core'
-    nameVersion = '0.1.0'
+    nameVersion = '0.1.1'
     nameGithub = "WebSweet"
     libDesc = 'Kotlin Library '
 }
 
 repositories {
     maven {
-        allowInsecureProtocol = true
-        url 'http://maven.app800.cn/repository/public/'
+        url 'https://app800.cn/maven/repository/public/'
     }
     google()
     mavenCentral()
@@ -32,7 +31,7 @@ dependencies {
     compileOnly "javax.servlet:javax.servlet-api:3.1.0"
     compileOnly 'javax.websocket:javax.websocket-api:1.1'
 
-    api 'app.entao.web:basic:0.1.0'
+    api 'app.entao.web:basic:0.1.1'
 //    api project(':basic')
 }
 apply from: "libweb.gradle"

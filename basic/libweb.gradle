@@ -46,8 +46,7 @@ afterEvaluate {
         repositories {
             maven {
                 name = "App800"
-                url = 'http://maven.app800.cn/repository/public/'
-                allowInsecureProtocol(true)
+                url 'https://app800.cn/maven/repository/public/'
                 credentials {
                     username = ARCHIVA_USERNAME
                     password = ARCHIVA_PASSWORD
@@ -59,7 +58,6 @@ afterEvaluate {
                 if (nameVersion.toLowerCase().contains("snap")) {
                     url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
                 }
-                allowInsecureProtocol(true)
                 credentials {
                     username = MV_USER
                     password = MV_PWD

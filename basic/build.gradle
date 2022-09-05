@@ -6,7 +6,7 @@ plugins {
 ext {
     nameGroup = 'app.entao.web'
     nameAF = 'basic'
-    nameVersion = '0.1.0'
+    nameVersion = '0.1.1'
     nameGithub = "WebSweet"
     libDesc = 'Kotlin Library, HTTP/JSON/SQL/LOG functions.'
 }
@@ -14,8 +14,7 @@ ext {
 
 repositories {
     maven {
-        allowInsecureProtocol = true
-        url 'http://maven.app800.cn/repository/public/'
+        url 'https://app800.cn/maven/repository/public/'
     }
     google()
     mavenCentral()
