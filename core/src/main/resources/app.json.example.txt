@@ -1,0 +1,3 @@
+{
+  "app": "dev.entao.safe.App"
+}

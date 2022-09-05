@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>EventSource</title>
+</head>
+<body>
+<h1>获取服务端更新数据</h1>
+<div id="result"></div>
+
+<script>
+    var source = new EventSource("account/sse");
+    source.addEventListener("test", function (event){
+        console.log(event)
+        document.getElementById("result").innerHTML += event.lastEventId + " " + event.data + "<br>";
+    });
+    source.onmessage = function (event) {
+        console.log(event)
+        document.getElementById("result").innerHTML += event + "<br>";
+    };
+
+</script>
+
+</body>
+</html>

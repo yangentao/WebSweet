@@ -1,0 +1,112 @@
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+apply plugin: 'org.jetbrains.dokka'
+
+
+group nameGroup
+version nameVersion
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_11
+//        freeCompilerArgs += "-Xcontext-receivers"
+    }
+}
+
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+tasks.named("dokkaJavadoc") {
+//    outputFormat = "javadoc"
+    outputDirectory = javadoc.destinationDir
+}
+
+task docJarTask(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set('javadoc')
+    from javadoc.destinationDir
+}
+artifacts {
+    archives jar
+    archives sourcesJar
+    archives docJarTask
+}
+
+ext["signing.keyId"] = SIG_KEY_ID
+ext["signing.password"] = SIG_PWD
+ext["signing.secretKeyRingFile"] = SIG_FILE
+
+
+afterEvaluate {
+    publishing {
+        repositories {
+            maven {
+                name = "App800"
+                url = 'http://maven.app800.cn/repository/public/'
+                allowInsecureProtocol(true)
+                credentials {
+                    username = ARCHIVA_USERNAME
+                    password = ARCHIVA_PASSWORD
+                }
+            }
+            maven {
+                name = "Sonatype"
+                url = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                if (nameVersion.toLowerCase().contains("snap")) {
+                    url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+                }
+                allowInsecureProtocol(true)
+                credentials {
+                    username = MV_USER
+                    password = MV_PWD
+                }
+            }
+        }
+        publications {
+            release(MavenPublication) {
+                from components.java
+
+                artifact sourcesJar
+                artifact docJarTask
+
+                groupId = nameGroup
+                version = nameVersion
+                artifactId = nameAF
+
+                pom {
+                    name = nameAF
+                    description = libDesc
+                    url = "https://github.com/yangentao/${nameGithub}"
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'yangentao'
+                            name = 'yangentao'
+                            email = 'entaoyang@163.com'
+                        }
+                    }
+                    scm {
+                        connection = "scm:git@github.com:yangentao/${nameGithub}.git"
+                        developerConnection = "scm:git@github.com:yangentao/${nameGithub}.git"
+                        url = "https://github.com/yangentao/${nameGithub}/tree/main"
+                    }
+                }
+            }
+        }
+    }
+    signing {
+        sign publishing.publications.release
+        sign configurations.archives
+    }
+}
+
+

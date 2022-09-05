@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>WebSocket</title>
+
+
+</head>
+<body>
+
+<button onclick="sendMsg()">Send</button>
+<div id="msg"></div>
+
+<script type="text/javascript">
+    var counter = 0;
+    var ws = new WebSocket("ws://localhost:8080/travel/wsecho/yang");
+    ws.onopen = function () {
+        outMsg("onOpen")
+    };
+
+    ws.onmessage = function (evt) {
+        outMsg("onMessage")
+        outMsg(evt.data)
+    };
+
+    ws.onclose = function () {
+        outMsg("onClose")
+    };
+
+    function sendMsg() {
+        counter += 1;
+        ws.send("发送数据 " + counter);
+    }
+
+    function outMsg(msg) {
+        document.getElementById("msg").innerHTML += msg + "<br>";
+    }
+</script>
+</body>
+</html>

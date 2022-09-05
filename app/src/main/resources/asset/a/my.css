@@ -1,0 +1,13 @@
+
+.table th,
+.table td {
+    padding: 0.5rem 0.25rem;
+    white-space: nowrap;
+}
+
+.drag-upload-div {
+    border: 2px dotted #999;
+    border-radius: 15px;
+    text-align: center;
+}
+

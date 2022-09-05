@@ -1,0 +1,6 @@
+rootProject.name = 'WebSweet'
+include ':app'
+include ':basic'
+include ':core'
+include ':tag'
+
