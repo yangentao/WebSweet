@@ -6,8 +6,8 @@ plugins {
 ext {
     nameGroup = 'app.entao.web'
     nameAF = 'basic'
-    nameVersion = '0.0.8'
-    nameGithub = "WebBasic"
+    nameVersion = '0.1.0'
+    nameGithub = "WebSweet"
     libDesc = 'Kotlin Library, HTTP/JSON/SQL/LOG functions.'
 }
 

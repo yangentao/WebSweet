@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package dev.entao.web.base
 
 import java.io.File
@@ -84,7 +82,7 @@ object Rand {
 }
 
 fun Double.formatDot(n: Int): String {
-    return if (n > 0) String.format("%.${n}f", this) else this.toInt().toString()
+    return if (n > 0) String.format("%.${n}f", this) else this.toLong().toString()
 }
 
 fun joinPath(path: String, vararg ps: String): String {

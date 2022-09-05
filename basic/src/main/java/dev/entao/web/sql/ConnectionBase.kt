@@ -2,15 +2,7 @@
 
 package dev.entao.web.sql
 
-import dev.entao.web.base.KClassValue
-import dev.entao.web.base.KPropValue
-import dev.entao.web.base.Name
-import dev.entao.web.base.Prop
-import dev.entao.web.base.lowerCased
-import dev.entao.web.base.ownerClass
-import dev.entao.web.base.useX
-import dev.entao.web.base.userName
-import dev.entao.web.base.valueParams
+import dev.entao.web.base.*
 import dev.entao.web.json.YsonArray
 import dev.entao.web.json.YsonBlob
 import dev.entao.web.json.YsonBool
@@ -46,17 +38,17 @@ private const val mysqlKeywors =
     "ACCESSIBLE,ADD,ANALYZE,ASC,BEFORE,CASCADE,CHANGE,CONTINUE,DATABASE,DATABASES,DAY_HOUR,DAY_MICROSECOND,DAY_MINUTE,DAY_SECOND,DELAYED,DESC,DISTINCTROW,DIV,DUAL,ELSEIF,EMPTY,ENCLOSED,ESCAPED,EXIT,EXPLAIN,FIRST_VALUE,FLOAT4,FLOAT8,FORCE,FULLTEXT,GENERATED,GROUPS,HIGH_PRIORITY,HOUR_MICROSECOND,HOUR_MINUTE,HOUR_SECOND,IF,IGNORE,INDEX,INFILE,INT1,INT2,INT3,INT4,INT8,IO_AFTER_GTIDS,IO_BEFORE_GTIDS,ITERATE,JSON_TABLE,KEY,KEYS,KILL,LAG,LAST_VALUE,LEAD,LEAVE,LIMIT,LINEAR,LINES,LOAD,LOCK,LONG,LONGBLOB,LONGTEXT,LOOP,LOW_PRIORITY,MASTER_BIND,MASTER_SSL_VERIFY_SERVER_CERT,MAXVALUE,MEDIUMBLOB,MEDIUMINT,MEDIUMTEXT,MIDDLEINT,MINUTE_MICROSECOND,MINUTE_SECOND,NO_WRITE_TO_BINLOG,NTH_VALUE,NTILE,OPTIMIZE,OPTIMIZER_COSTS,OPTION,OPTIONALLY,OUTFILE,PURGE,READ,READ_WRITE,REGEXP,RENAME,REPEAT,REPLACE,REQUIRE,RESIGNAL,RESTRICT,RLIKE,SCHEMA,SCHEMAS,SECOND_MICROSECOND,SEPARATOR,SHOW,SIGNAL,SPATIAL,SQL_BIG_RESULT,SQL_CALC_FOUND_ROWS,SQL_SMALL_RESULT,SSL,STARTING,STORED,STRAIGHT_JOIN,TERMINATED,TINYBLOB,TINYINT,TINYTEXT,UNDO,UNLOCK,UNSIGNED,USAGE,USE,UTC_DATE,UTC_TIME,UTC_TIMESTAMP,VARBINARY,VARCHARACTER,VIRTUAL,WHILE,WRITE,XOR,YEAR_MONTH,ZEROFILL"
 val mysqlKeySet: Set<String> = mysqlKeywors.lowerCased.split(',').toSet()
 
-val KClass<*>.nameSQL: String by KClassValue {
+val KClass<*>.nameSQL: String by ClassProps {
     val s = it.findAnnotation<Name>()?.value ?: it.simpleName!!.lowerCased
     escSQLName(s)
 }
 
 //小写!!
-val Prop.nameSQL: String by KPropValue {
+val Prop.nameSQL: String by PropProps {
     val s = it.findAnnotation<Name>()?.value ?: it.name.lowerCased
     escSQLName(s)
 }
-val Prop.fullNameSQL: String by KPropValue {
+val Prop.fullNameSQL: String by PropProps {
     "${it.ownerClass!!.nameSQL}.${it.nameSQL}"
 }
 

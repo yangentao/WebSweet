@@ -1,15 +1,15 @@
 package dev.entao.web.core
 
+import dev.entao.web.base.ClassProps
+import dev.entao.web.base.FunProps
 import dev.entao.web.base.Name
 import dev.entao.web.base.lowerCased
-import dev.entao.web.base.ownerClass
 import dev.entao.web.base.substr
 import dev.entao.web.base.userName
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
-import kotlin.reflect.KProperty
 import kotlin.reflect.full.findAnnotation
 
 /**
@@ -29,29 +29,6 @@ val KFunction<*>.actionName: String by FunProps { f ->
 val KClass<*>.pageName: String by ClassProps { makePageName(it) }
 
 
-class FunProps(val block: (KFunction<*>) -> String) {
-
-    operator fun getValue(thisRef: KFunction<*>, property: KProperty<*>): String {
-        val key = thisRef.ownerClass!!.qualifiedName!! + "." + thisRef.name + "." + property.name
-        return map.getOrPut(key) { block(thisRef) }
-    }
-
-    companion object {
-        val map = HashMap<String, String>()
-    }
-}
-
-class ClassProps(val block: (KClass<*>) -> String) {
-
-    operator fun getValue(thisRef: KClass<*>, property: KProperty<*>): String {
-        val key = thisRef.qualifiedName!! + "." + property.name
-        return map.getOrPut(key) { block(thisRef) }
-    }
-
-    companion object {
-        val map = HashMap<String, String>()
-    }
-}
 
 private fun makePageName(cls: KClass<*>): String {
     val c = cls.findAnnotation<Controller>()

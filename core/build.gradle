@@ -6,8 +6,8 @@ plugins {
 ext {
     nameGroup = 'app.entao.web'
     nameAF = 'core'
-    nameVersion = '0.0.3'
-    nameGithub = "WebCore"
+    nameVersion = '0.1.0'
+    nameGithub = "WebSweet"
     libDesc = 'Kotlin Library '
 }
 
@@ -32,7 +32,7 @@ dependencies {
     compileOnly "javax.servlet:javax.servlet-api:3.1.0"
     compileOnly 'javax.websocket:javax.websocket-api:1.1'
 
-//    api 'app.entao.web:basic:0.0.8'
-    api project(':basic')
+    api 'app.entao.web:basic:0.1.0'
+//    api project(':basic')
 }
 apply from: "libweb.gradle"

@@ -1,15 +1,31 @@
 package dev.entao.web.core
 
+import dev.entao.web.base.ClassProps
 import dev.entao.web.base.KClassValue
 import kotlin.reflect.KClass
 import kotlin.reflect.KFunction
+import kotlin.reflect.KProperty
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.full.memberFunctions
 
 typealias HttpAction = KFunction<*>
 
-val KClass<*>.actionList: List<HttpAction> by KClassValue { cls ->
-    cls.memberFunctions.filter { it.hasAnnotation<Action>() }
+val KClass<*>.actionList: List<KFunction<*>> by ClassActions(::findClassActions)
+
+internal class ClassActions(val block: (KClass<*>) -> List<HttpAction>) {
+
+    operator fun getValue(thisRef: KClass<*>, property: KProperty<*>): List<HttpAction> {
+        val key = thisRef.qualifiedName!! + "." + property.name
+        return map.getOrPut(key) { block(thisRef) }
+    }
+
+    companion object {
+        val map = java.util.HashMap<String, List<HttpAction>>()
+    }
+}
+
+private fun findClassActions(cls: KClass<*>): List<HttpAction> {
+    return cls.memberFunctions.filter { it.hasAnnotation<Action>() }
 }
 
 

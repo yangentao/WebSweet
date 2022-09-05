@@ -6,8 +6,8 @@ plugins {
 ext {
     nameGroup = 'app.entao.web'
     nameAF = 'tag'
-    nameVersion = '0.0.3'
-    nameGithub = "WebTag"
+    nameVersion = '0.1.0'
+    nameGithub = "WebSweet"
     libDesc = 'Kotlin Library, page functions.'
 }
 
@@ -31,8 +31,8 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-reflect"
     compileOnly "javax.servlet:javax.servlet-api:3.1.0"
 
-    api project(':core')
-//    api 'app.entao.web:core:0.0.3'
+//    api project(':core')
+    api 'app.entao.web:core:0.1.0'
 }
 
 apply from: "libweb.gradle"

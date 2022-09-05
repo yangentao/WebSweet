@@ -12,26 +12,40 @@ typealias Prop0 = KProperty0<*>
 typealias Prop1 = KProperty1<*, *>
 
 
-//TODO delete LazyValue
-//只保存值
-//var name:String by CacheValue{...}
-class LazyValue<VALUE>(val block: () -> VALUE) {
-    private var v: VALUE? = null
-    private var inited = false
 
-    @Synchronized
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): VALUE {
-        if (!inited) {
-            v = block()
-            inited = true
-        }
-        return v!!
+class FunProps(val block: (KFunction<*>) -> String) {
+
+    operator fun getValue(thisRef: KFunction<*>, property: KProperty<*>): String {
+        val key = thisRef.ownerClass!!.qualifiedName!! + "." + thisRef.name + "." + property.name
+        return map.getOrPut(key) { block(thisRef) }
     }
 
-    @Synchronized
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: VALUE) {
-        inited = true
-        v = value
+    companion object {
+        val map = java.util.HashMap<String, String>()
+    }
+}
+
+class ClassProps(val block: (KClass<*>) -> String) {
+
+    operator fun getValue(thisRef: KClass<*>, property: KProperty<*>): String {
+        val key = thisRef.qualifiedName!! + "." + property.name
+        return map.getOrPut(key) { block(thisRef) }
+    }
+
+    companion object {
+        val map = java.util.HashMap<String, String>()
+    }
+}
+
+class PropProps(val block: (KProperty<*>) -> String) {
+
+    operator fun getValue(thisRef: KProperty<*>, property: KProperty<*>): String {
+        val key = thisRef.ownerClass!!.qualifiedName + "." + thisRef.name + "." + property.name
+        return map.getOrPut(key) { block(thisRef) }
+    }
+
+    companion object {
+        val map = java.util.HashMap<String, String>()
     }
 }
 
@@ -58,97 +72,8 @@ class KClassValue<VALUE>(val block: (KClass<*>) -> VALUE) {
     }
 }
 
-//使用属性的类+属性的名称做为键来存储数据, 相当于KProperty的静态变量
-//val KProperty<*>.sqlName by KPropValue{ sqlEscape(it.name)}
-class KPropValue<VALUE>(val block: (KProperty<*>) -> VALUE) {
-    private var map = HashMap<String, VALUE>()
-    private fun makeKey(thisRef: KProperty<*>, property: KProperty<*>): String {
-        return thisRef.ownerClass!!.qualifiedName!! + "." + thisRef.name + "." + property.name
-    }
 
-    @Synchronized
-    operator fun getValue(thisRef: KProperty<*>, property: KProperty<*>): VALUE {
-        val key = makeKey(thisRef, property)
-        if (map.containsKey(key)) {
-            @Suppress("UNCHECKED_CAST")
-            return map[key] as VALUE
-        }
-        val v = block(thisRef)
-        map[key] = v
-        return v
-    }
 
-    @Synchronized
-    operator fun setValue(thisRef: KProperty<*>, property: KProperty<*>, value: VALUE) {
-        val key = makeKey(thisRef, property)
-        map[key] = value
-    }
-}
-
-// 相当于静态变量
-//Person::add.paramNames:List<String> by KFunValue{...}
-class KFunValue<VALUE>(val block: (KFunction<*>) -> VALUE) {
-    private var map = HashMap<String, VALUE>()
-
-    private fun makeKey(thisRef: KFunction<*>, property: KProperty<*>): String {
-        return thisRef.ownerClass!!.qualifiedName!! + "." + thisRef.name + "." + property.name
-    }
-
-    @Synchronized
-    operator fun getValue(thisRef: KFunction<*>, property: KProperty<*>): VALUE {
-        val key = makeKey(thisRef, property)
-        if (map.containsKey(key)) {
-            @Suppress("UNCHECKED_CAST")
-            return map[key] as VALUE
-        }
-        val v = block(thisRef)
-        map[key] = v
-        return v
-    }
-
-    @Synchronized
-    operator fun setValue(thisRef: KFunction<*>, property: KProperty<*>, value: VALUE) {
-        val key = makeKey(thisRef, property)
-        map[key] = value
-    }
-}
-
-//根据对象存放值, 相当于对象的属性
-//不能存放null
-//OK: var KClass<*>.myvalue:String by ObjectValue{ "abc" }
-//BAD: var KClass<*>.myvalue:String? by ObjectValue{ "abc" }
-class ObjectValue<THIS, VALUE>(val block: (THIS) -> VALUE) {
-    private var map = HashMap<WeakRef<THIS>, VALUE>()
-    private var readCount: Int = 0
-
-    @Synchronized
-    operator fun getValue(thisRef: THIS, property: KProperty<*>): VALUE {
-        readCount += 1
-        if (readCount > 10000) {
-            readCount = 0
-            val ite = map.iterator()
-            while (ite.hasNext()) {
-                val e = ite.next()
-                if (e.key.isNull) {
-                    ite.remove()
-                }
-            }
-        }
-        val w = WeakRef(thisRef)
-        if (map.containsKey(w)) {
-            @Suppress("UNCHECKED_CAST")
-            return map[w] as VALUE
-        }
-        val v = block(thisRef)
-        map[w] = v
-        return v
-    }
-
-    @Synchronized
-    operator fun setValue(thisRef: THIS, property: KProperty<*>, value: VALUE) {
-        map[WeakRef(thisRef)] = value
-    }
-}
 
 
 class WeakRef<T>(value: T?) {
