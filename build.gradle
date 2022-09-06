@@ -12,8 +12,7 @@ buildscript {
 allprojects {
     repositories {
         maven {
-            url 'http://maven.app800.cn/repository/public/'
-            allowInsecureProtocol = true
+            url 'https://app800.cn/maven/repository/public/'
         }
         google()
         mavenCentral()
