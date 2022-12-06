@@ -27,7 +27,7 @@ class HttpService(filterConfig: FilterConfig) : BaseService(filterConfig) {
             return if (appCls != null && appCls.isNotEmpty()) {
                 Class.forName(appCls).kotlin.createInstanceX(this)
             } else {
-                Class.forName("dev.entao.web.SweetApp").kotlin.createInstanceX(this)
+                Class.forName("dev.entao.web.HareApp").kotlin.createInstanceX(this)
             }
         } catch (ex: Exception) {
             loge("Instance App Failed!!!")

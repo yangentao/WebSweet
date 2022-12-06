@@ -1,10 +1,10 @@
 plugins {
     id 'java'
     id 'war'
-    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
 }
 
-group 'app.entao.web.sweet'
+group 'dev.entao.web.sweet'
 version '1.0.0'
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -17,12 +17,14 @@ compileKotlin {
         freeCompilerArgs += "-Xskip-prerelease-check"
     }
 }
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
 
 repositories {
 
     maven {
-        allowInsecureProtocol = true
-        url 'http://maven.app800.cn/repository/public/'
+        url 'https://maven.app800.cn/repository/public/'
     }
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib"
@@ -37,9 +39,9 @@ repositories {
 //        api project(':basic')
 //        api project(':tag')
 //        api project(':core')
-        api 'app.entao.web:basic:0.1.0'
-        api 'app.entao.web:tag:0.1.0'
-        api 'app.entao.web:core:0.1.0'
+        api 'dev.entao.web:basic:0.2.0'
+        api 'dev.entao.web:tag:0.2.1'
+        api 'dev.entao.web:core:0.2.1'
 
     }
     mavenCentral()

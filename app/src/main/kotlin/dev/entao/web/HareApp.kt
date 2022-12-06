@@ -13,8 +13,7 @@ import dev.entao.web.core.slices.TimerProvider
 import dev.entao.web.sql.ConnPick
 import dev.entao.web.sql.addSourceMySQL
 
-
-class SweetApp(httpService: HttpService) : BaseApp(httpService) {
+class HareApp(httpService: HttpService) : BaseApp(httpService) {
 
     override val appName: String = "Hare管理后台"
     private val timerProvider: TimerProvider = TimerProvider()

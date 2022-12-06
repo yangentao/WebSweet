@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.7.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.20'
 }
 
 ext {
-    nameGroup = 'app.entao.web'
+    nameGroup = 'dev.entao.web'
     nameAF = 'tag'
-    nameVersion = '0.1.1'
+    nameVersion = '0.2.1'
     nameGithub = "WebSweet"
     libDesc = 'Kotlin Library, page functions.'
 }
@@ -31,7 +31,7 @@ dependencies {
     compileOnly "javax.servlet:javax.servlet-api:3.1.0"
 
 //    api project(':core')
-    api 'app.entao.web:core:0.1.1'
+    api 'dev.entao.web:core:0.2.1'
 }
 
 apply from: "libweb.gradle"
