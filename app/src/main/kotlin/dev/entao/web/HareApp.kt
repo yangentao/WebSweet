@@ -24,7 +24,7 @@ class HareApp(httpService: HttpService) : BaseApp(httpService) {
             "hare",
             "hare",
             "hare",
-            "jdbc:mysql://192.168.3.100:3306/hare?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong"
+            "jdbc:mysql://127.0.0.1:3306/hare?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong"
         )
 
         httpService.apply {
