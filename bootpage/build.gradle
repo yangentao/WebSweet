@@ -30,7 +30,9 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-reflect"
     compileOnly "javax.servlet:javax.servlet-api:3.1.0"
 
+    api project(':basic')
     api project(':core')
+    api project(':tag')
 //    api 'dev.entao.web:core:0.2.1'
 }
 

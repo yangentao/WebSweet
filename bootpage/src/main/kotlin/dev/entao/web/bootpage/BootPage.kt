@@ -1,4 +1,7 @@
 package dev.entao.web.bootpage
 
-class BootPage {
+import dev.entao.web.core.HttpContext
+import dev.entao.web.tag.HtmlPage
+
+class BootPage(context: HttpContext) : HtmlPage(context) {
 }
