@@ -1,11 +1,6 @@
 package dev.entao.web.core
 
-import dev.entao.web.base.ClassProps
-import dev.entao.web.base.FunProps
-import dev.entao.web.base.Name
-import dev.entao.web.base.lowerCased
-import dev.entao.web.base.substr
-import dev.entao.web.base.userName
+import dev.entao.web.base.*
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 import kotlin.reflect.KClass
@@ -17,17 +12,23 @@ import kotlin.reflect.full.findAnnotation
  */
 
 val KFunction<*>.actionName: String by FunProps { f ->
-    val ac = f.findAnnotation<Action>() ?: error("$f 没有Action注解")
-    when {
-        ac.index -> ""
-        ac.rename.isNotEmpty() -> ac.rename
-        else -> f.userName.lowerCased
+    val ac = f.findAnnotation<Action>()
+    if (ac != null) {
+        return@FunProps when {
+            ac.index -> ""
+            ac.rename.isNotEmpty() -> ac.rename
+            else -> f.userName.lowerCased
+        }
+    } else {
+        f.findAnnotation<MissAction>()?.also {
+            return@FunProps "miss"
+        }
     }
+    error("$f 没有Action注解")
 }
 
 
 val KClass<*>.pageName: String by ClassProps { makePageName(it) }
-
 
 
 private fun makePageName(cls: KClass<*>): String {
@@ -69,9 +70,17 @@ fun isSubpath(longPath: String, shortPath: String): Boolean {
     }
 }
 
-fun buildPath(vararg ps: String): String {
-    return "/" + ps.filter { it.isNotEmpty() }.joinToString("/") { it.trim('/') }
+fun buildURI(vararg ps: String): String {
+    val ss = ps.map { it.trim('/') }.filter { it.notEmpty() }.joinToString("/")
+    return "/$ss"
+}
 
+fun joinURL(path: String, vararg ps: String): String {
+    val ss = ps.map { it.trim('/') }.filter { it.notEmpty() }.joinToString("/")
+    if (path.endsWith('/')) {
+        return path + ss
+    }
+    return "$path/$ss"
 }
 
 val Throwable.realReason: Throwable

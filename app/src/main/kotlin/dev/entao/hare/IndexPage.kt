@@ -44,7 +44,7 @@ class IndexPage(context: HttpContext) : HttpController(context) {
     @Action(index = true)
     fun index() {
 
-        val p = HtmlPage(context)
+        val p = DashPage(context)
         p.body {
             h1 {
                 +"Hello Yang"

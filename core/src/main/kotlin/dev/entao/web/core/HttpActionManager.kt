@@ -87,7 +87,7 @@ class HttpActionManager(private val contextPath: String) {
 
 
     private fun makeUri(vararg ps: String): String {
-        return buildPath(contextPath, *ps)
+        return buildURI(contextPath, *ps)
     }
 
 }

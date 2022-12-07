@@ -43,7 +43,7 @@ class ResController(context: HttpContext) : HttpController(context) {
     }
 
     companion object {
-        val allowFileExtSet: HashSet<String> = hashSetOf("jpg", "png", "jpeg", "js", "css", "webp", "html", "htm", "txt", "xml", "json")
+        val allowFileExtSet: HashSet<String> = hashSetOf("js", "css", "map", "jpg", "png", "jpeg", "ico", "webp", "html", "htm", "txt", "xml", "json")
         private val acceptorList: ArrayList<ResAcceptor> = ArrayList()
         private fun isAccept(path: String): Boolean {
             for (a in acceptorList) {

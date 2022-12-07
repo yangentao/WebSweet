@@ -1,5 +1,6 @@
 package dev.entao.web.core.slices
 
+import dev.entao.web.base.userName
 import dev.entao.web.core.AppSlice
 import dev.entao.web.core.BaseApp
 import dev.entao.web.core.ExtValue
@@ -20,7 +21,7 @@ class TickSlice(app: BaseApp) : AppSlice(app) {
     override fun afterRouter(context: HttpContext, cls: KClass<*>, action: HttpAction) {
         val a: Long = context.tickValue ?: return
         val delta = System.currentTimeMillis() - a
-        logd("请求${cls.pageName}.${action.actionName}用时: ${delta.formatedSeconds} 秒")
+        logd("请求${cls.pageName}.${action.userName}用时: ${delta.formatedSeconds} 秒")
     }
 }
 

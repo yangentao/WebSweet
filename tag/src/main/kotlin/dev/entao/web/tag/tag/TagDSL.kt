@@ -141,7 +141,7 @@ fun Tag.form(vararg classes: String, block: FormTag.() -> Unit): FormTag {
     return appendTag(*classes, block = block)
 }
 
-fun Tag.scriptFile(src: String) {
+fun Tag.script(src: String) {
     appendTag<ScriptTag> {
         this.src = src
     }

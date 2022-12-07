@@ -1,6 +1,7 @@
 package dev.entao.web
 
 import dev.entao.hare.IndexPage
+import dev.entao.web.bootpage.BootPage
 import dev.entao.web.core.BaseApp
 import dev.entao.web.core.HttpService
 import dev.entao.web.core.ResController
@@ -10,9 +11,11 @@ import dev.entao.web.core.slices.IPRecordSlice
 import dev.entao.web.core.slices.LoginCheckSlice
 import dev.entao.web.core.slices.TickSlice
 import dev.entao.web.core.slices.TimerProvider
+import dev.entao.web.log.logd
 import dev.entao.web.sql.ConnPick
 import dev.entao.web.sql.addMySQL
 import dev.entao.web.sql.addSourceMySQL
+import jdk.internal.org.jline.utils.Colors.s
 
 class HareApp(httpService: HttpService) : BaseApp(httpService) {
 
@@ -33,6 +36,8 @@ class HareApp(httpService: HttpService) : BaseApp(httpService) {
             println("On Timer Minute:$m ")
         }
         addSliceList(TickSlice(this), IPRecordSlice(this), LoginCheckSlice(this))
+
+        ResController.accept(BootPage.bootAcceptor)
 
     }
 

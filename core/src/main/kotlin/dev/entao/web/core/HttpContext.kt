@@ -2,11 +2,7 @@
 
 package dev.entao.web.core
 
-import dev.entao.web.base.Mimes
-import dev.entao.web.base.hexText
-import dev.entao.web.base.paramNames
-import dev.entao.web.base.urlEncoded
-import dev.entao.web.base.userName
+import dev.entao.web.base.*
 import dev.entao.web.log.logd
 import java.io.File
 import java.io.PrintWriter
@@ -176,10 +172,12 @@ class HttpContext(val httpService: HttpService, val request: HttpServletRequest,
         if (str.startsWith("/")) {
             return hostUrl + str
         }
-        if (str.startsWith("@/")) {
-            return appUrl + str.substring(1)
+        if (str.startsWith("@")) {
+            val a = str.substringAfter('@').substringBefore('/')
+            val b = str.substringAfter('/', "")
+            return joinURL(appUrl, a, b)
         }
-        return "$appUrl/$str"
+        return joinURL(appUrl, str)
     }
 
     fun uriOf(str: String): String {
@@ -192,10 +190,12 @@ class HttpContext(val httpService: HttpService, val request: HttpServletRequest,
         if (str.startsWith("/")) {
             return str
         }
-        if (str.startsWith("@/")) {
-            return contextPath + str.substring(1)
+        if (str.startsWith("@")) {
+            val a = str.substringAfter('@').substringBefore('/')
+            val b = str.substringAfter('/', "")
+            return buildURI(contextPath, a, b)
         }
-        return "$contextPath/$str"
+        return buildURI(contextPath, str)
     }
 
     fun uriAction(action: HttpAction): String {

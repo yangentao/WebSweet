@@ -95,15 +95,7 @@ fun joinPath(path: String, vararg ps: String): String {
     return sb
 }
 
-fun joinURL(path: String, vararg ps: String): String {
-    var sb = path
-    for (p in ps) {
-        sb = sb.trimEnd('/')
-        sb += "/"
-        sb += p.trimStart('/')
-    }
-    return sb
-}
+
 
 fun KClass<*>.resourceBytes(name: String): ByteArray? {
     val i = this.java.classLoader.getResourceAsStream(name) ?: return null
