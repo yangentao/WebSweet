@@ -20,7 +20,7 @@ fun ConnPick.addSourceContextJDBC() {
 }
 
 fun ConnPick.addMySQL(name: String, user: String, pwd: String, host: String, port: Int, block: PoolProperties.() -> Unit = {}) {
-    this.addSourceMySQL(name, user, pwd, "jdbc:mysql://${host}:${port}/hare?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong", block)
+    this.addSourceMySQL(name, user, pwd, "jdbc:mysql://${host}:${port}/${name}?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong", block)
 }
 
 fun ConnPick.addSourceMySQL(

@@ -2,6 +2,25 @@ package dev.entao.web.bootpage
 
 import dev.entao.web.core.HttpContext
 import dev.entao.web.tag.HtmlPage
+import dev.entao.web.tag.tag.link
+import dev.entao.web.tag.tag.meta
+import dev.entao.web.tag.tag.scriptFile
 
-class BootPage(context: HttpContext) : HtmlPage(context) {
+//TODO @res, @static, @app, @
+open class BootPage(context: HttpContext) : HtmlPage(context) {
+
+    init {
+        head {
+            meta(charset = "utf-8")
+            meta(name = "viewport", content = "width=device-width,initial-scale=1")
+            meta(name = "description", content = "")
+            title("Dashboard")
+            link(rel = "stylesheet", href = "@res/bootpage/bootstrap.css")
+        }
+
+        body {
+            scriptFile("@res/bootpage/bootstrap.js")
+        }
+
+    }
 }

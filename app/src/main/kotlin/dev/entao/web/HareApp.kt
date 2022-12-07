@@ -11,6 +11,7 @@ import dev.entao.web.core.slices.LoginCheckSlice
 import dev.entao.web.core.slices.TickSlice
 import dev.entao.web.core.slices.TimerProvider
 import dev.entao.web.sql.ConnPick
+import dev.entao.web.sql.addMySQL
 import dev.entao.web.sql.addSourceMySQL
 
 class HareApp(httpService: HttpService) : BaseApp(httpService) {
@@ -20,12 +21,7 @@ class HareApp(httpService: HttpService) : BaseApp(httpService) {
 
     override fun onCreate() {
         super.onCreate()
-        ConnPick.addSourceMySQL(
-            "hare",
-            "hare",
-            "hare",
-            "jdbc:mysql://127.0.0.1:3306/hare?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Hongkong"
-        )
+        ConnPick.addMySQL("test", "test", "test", "192.168.3.100", 3306)
 
         httpService.apply {
             addController(ResController::class)
