@@ -16,6 +16,10 @@ open class HtmlPage(context: HttpContext, val html: HtmlTag = HtmlTag(context)) 
     val head: HeadTag = html.append(HeadTag(context))
     val body: BodyTag = html.append(BodyTag(context))
 
+    init {
+        html.lang = "en"
+    }
+
     fun head(block: TagBlock) {
         this.head.block()
     }

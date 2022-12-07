@@ -1,8 +1,10 @@
 package dev.entao.hare
 
+import dev.entao.web.bootpage.DashPage
 import dev.entao.web.core.Action
 import dev.entao.web.core.HttpContext
 import dev.entao.web.core.HttpController
+import dev.entao.web.core.render.send
 import dev.entao.web.core.render.sendResult
 import dev.entao.web.log.logd
 import dev.entao.web.tag.HtmlPage
@@ -10,6 +12,18 @@ import dev.entao.web.tag.tag.h1
 
 @dev.entao.web.core.Controller(index = true)
 class IndexPage(context: HttpContext) : HttpController(context) {
+
+
+    @Action(index = true)
+    fun index() {
+
+        send<DashPage> {
+            body {
+                h1 { +"Hello " }
+            }
+        }
+    }
+
 
     @Action
     fun ios() {
@@ -38,19 +52,6 @@ class IndexPage(context: HttpContext) : HttpController(context) {
                     }
                 }"""
         context.sendJSON(s.trimIndent())
-    }
-
-
-    @Action(index = true)
-    fun index() {
-
-        val p = DashPage(context)
-        p.body {
-            h1 {
-                +"Hello Yang"
-            }
-        }
-        p.send()
     }
 
 

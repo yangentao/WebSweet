@@ -3,6 +3,7 @@
 package dev.entao.web.tag.tag
 
 import dev.entao.web.base.escapeHtml
+import dev.entao.web.base.notEmpty
 import dev.entao.web.core.HttpContext
 import dev.entao.web.core.OnHttpContext
 import dev.entao.web.tag.attrVal
@@ -25,7 +26,9 @@ open class Tag(override val context: HttpContext, val tagName: String) : OnHttpC
     val root: Tag get() = this.parent?.root ?: this
 
     fun classAdd(vararg clses: String) {
-        classList.addAll(clses)
+        for (s in clses) {
+            classList += s.split(' ').map { it.trim() }.filter { it.notEmpty() }
+        }
     }
 
     fun classHas(cls: String): Boolean {

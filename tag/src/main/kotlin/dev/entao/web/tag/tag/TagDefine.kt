@@ -5,7 +5,7 @@ import dev.entao.web.core.HttpContext
 
 
 class HtmlTag(context: HttpContext) : Tag(context, "html") {
-    var language: String by TagProp
+    var lang: String by TagProp
 }
 
 class AnchorTag(context: HttpContext) : Tag(context, "a") {

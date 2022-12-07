@@ -16,7 +16,7 @@ open class BootPage(context: HttpContext) : HtmlPage(context) {
             meta(charset = "utf-8")
             meta(name = "viewport", content = "width=device-width,initial-scale=1")
             meta(name = "description", content = "")
-            title("Dashboard")
+            title("Title")
             link(rel = "stylesheet", href = "@res/bootpage/bootstrap.css".uri)
         }
 

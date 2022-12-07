@@ -74,6 +74,7 @@ fun Tag.a(vararg classes: String, block: AnchorTag.() -> Unit): AnchorTag {
     return appendTag(*classes, block = block)
 }
 
+
 fun Tag.link(
     charset: String? = null, href: String? = null, hreflang: String? = null,
     media: String? = null, referrerpolicy: String? = null, rel: String? = null, rev: String? = null,
@@ -97,10 +98,10 @@ fun Tag.link(vararg classes: String, block: LinkTag.() -> Unit): LinkTag {
     return appendTag(*classes, block = block)
 }
 
-fun Tag.linkCSS(filename: String): LinkTag {
+fun Tag.linkCSS(href: String): LinkTag {
     return link {
-        href = filename
-        rel = "stylesheet"
+        this.href = href
+        this.rel = "stylesheet"
     }
 }
 
@@ -419,6 +420,6 @@ private inline fun <reified T : Tag> Tag.appendTag(vararg clses: String, block: 
 
 fun Tag.style(block: () -> String): Tag {
     return append(Tag(context, "style")) {
-        this.text(block())
+        this.unsafe(block())
     }
 }
