@@ -1,13 +1,4 @@
-package table
-
-import all
-import attr
-import data
-import findElementById
 import kotlinx.browser.window
-import nearest
-import on
-import onSelf
 import org.w3c.dom.HTMLAnchorElement
 import org.w3c.dom.HTMLInputElement
 import org.w3c.dom.HTMLTableElement

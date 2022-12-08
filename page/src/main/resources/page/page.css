@@ -1,0 +1,77 @@
+/* 表格,行最后的连接 */
+.yet-action {
+    color: #084298;
+    text-decoration: none;
+    font-weight: 535;
+    /*margin-bottom: 0.5rem;*/
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+}
+
+.yet-action:hover {
+    color: #fff;
+    background-color: #084298;
+}
+
+/*表格全选*/
+.yet-checkall {
+    /*width: 2rem;*/
+}
+
+
+/*引用, 键*/
+.yet-ref-key {
+
+}
+
+/*引用, 值*/
+.yet-ref-label {
+
+}
+
+/*引用 查询按钮*/
+.yet-ref-query {
+
+}
+
+/*引用, 清除按钮*/
+.yet-ref-clear {
+
+}
+
+.yet-upload-div {
+    border: 2px dotted #999;
+    border-radius: 15px;
+    text-align: center;
+    /*height: 8rem;*/
+}
+
+.yet-upload-image {
+    height: 6rem;
+    margin: 4px;
+}
+
+
+.yet-upload-progress {
+    height: 2px;
+}
+
+.yet-upload-info {
+    font-size: 1rem !important;
+}
+
+.yet-upload-result {
+    font-size: 1rem !important;
+}
+
+.yet-upload-hidden {
+
+}
+
+.yet-side-icon {
+    width: 1.3rem;
+    height: 1.3rem;
+    vertical-align:middle;
+    margin-right: 0.2rem;
+    margin-bottom:0.2rem;
+}

@@ -1,22 +1,10 @@
 @file:Suppress("UnsafeCastFromDynamic", "MemberVisibilityCanBePrivate", "unused", "EXPERIMENTAL_API_USAGE", "OPT_IN_USAGE")
 
-package dialog
-
-import attr
-import bootstrap
-import bsModal
-import button
-import div
-import h6
-import htmlValue
 import kotlinx.browser.document
 import kotlinx.dom.addClass
-import on
 import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.events.Event
-import query
-import text
 
 
 

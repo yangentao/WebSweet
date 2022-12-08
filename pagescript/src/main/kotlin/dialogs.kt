@@ -1,22 +1,8 @@
-package dialog
-
-import DATA
-import HttpGet
-import HttpPost
-import attr
-import body
-import bsModal
-import data
-import div
-import htmlValue
-import image
 import kotlinx.browser.window
 import kotlinx.dom.addClass
-import on
 import org.w3c.dom.Element
 import org.w3c.dom.HTMLFormElement
 import org.w3c.xhr.FormData
-import query
 
 @JsExport
 @JsName("confirmById")

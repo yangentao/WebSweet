@@ -90,3 +90,27 @@ body {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
+
+
+/*------------------custom-----------------------------------------------------------------*/
+.sidebar .submenu {
+    list-style-type: none;
+    /*font-weight: 500;*/
+    /*color: #333;*/
+}
+
+.navbar-dark .nav-link {
+    font-weight: 500;
+    color: #ccc;
+}
+
+.navbar-dark .nav-link {
+    margin-right: 4px;
+    color: #727272;
+}
+
+.navbar-dark .nav-link.active {
+    font-weight: 800;
+    color: #fff
+}
+

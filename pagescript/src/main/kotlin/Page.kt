@@ -1,13 +1,8 @@
 @file:Suppress("EXPERIMENTAL_API_USAGE", "OPT_IN_USAGE")
 
-import dialog.BootDialog
 import kotlinx.browser.window
 import kotlinx.dom.clear
-import org.w3c.dom.Element
-import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLElement
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.HTMLSelectElement
+import org.w3c.dom.*
 import kotlin.js.Json
 
 

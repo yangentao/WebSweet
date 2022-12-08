@@ -2,11 +2,7 @@
 
 import kotlinx.dom.addClass
 import kotlinx.dom.removeClass
-import org.w3c.dom.DragEvent
-import org.w3c.dom.HTMLDivElement
-import org.w3c.dom.HTMLImageElement
-import org.w3c.dom.HTMLInputElement
-import org.w3c.dom.HTMLSpanElement
+import org.w3c.dom.*
 import org.w3c.dom.url.URL
 import org.w3c.files.File
 import org.w3c.files.get
