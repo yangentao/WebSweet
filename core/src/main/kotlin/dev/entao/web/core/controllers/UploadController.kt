@@ -2,14 +2,9 @@ package dev.entao.web.core.controllers
 
 import dev.entao.web.base.Label
 import dev.entao.web.base.Mimes
-import dev.entao.web.core.HttpContext
-import dev.entao.web.core.HttpController
-import dev.entao.web.core.OnHttpContext
-import dev.entao.web.core.isFilePart
+import dev.entao.web.core.*
 import dev.entao.web.core.render.sendFile
 import dev.entao.web.core.render.sendResult
-import dev.entao.web.core.url
-import dev.entao.web.core.writeTo
 import dev.entao.web.log.logd
 import java.awt.image.BufferedImage
 import java.io.File
@@ -35,14 +30,15 @@ fun scaleImageUrl(imgId: Int, width: Int, height: Int = 0): String {
 class UploadController(context: HttpContext) : HttpController(context) {
 
     @Suppress("UNUSED_PARAMETER")
-    @dev.entao.web.core.Action
+    @Action
     fun typeimg(type: String) {
+        //TODO miss file
         sendFile(File(context.httpService.appDir, "assets/file_miss.png")) {}
     }
 
     //上传一个文件
-    @dev.entao.web.core.Action
-    @dev.entao.web.core.HttpMethod("POST")
+    @Action
+    @HttpMethod("POST")
     fun upload() {
         val part: Part = context.partList.firstOrNull { it.isFilePart } ?: return context.sendError(400, "NO file found")
         val m = Upload.fromContext(context, part)
@@ -79,18 +75,18 @@ class UploadController(context: HttpContext) : HttpController(context) {
     }
 
     @Label("下载")
-    @dev.entao.web.core.Action
+    @Action
     fun download(id: Int) {
         sendFile(id, false)
     }
 
-    @dev.entao.web.core.Action
+    @Action
     fun media(id: Int) {
         sendFile(id, true)
     }
 
     //TODO crop = false
-    @dev.entao.web.core.Action
+    @Action
     fun scale(id: Int, width: Int = 360, height: Int = 0) {
         val item = Upload.oneByKey(id) ?: return context.sendError(404, "无效的标识")
         val file = item.localFile(context.app.uploadDir.absolutePath)
