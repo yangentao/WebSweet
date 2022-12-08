@@ -4,4 +4,4 @@ include ':basic'
 include ':core'
 include ':tag'
 include ':bootpage'
-
+include ':bootscript'

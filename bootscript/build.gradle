@@ -1,0 +1,39 @@
+plugins {
+    id 'org.jetbrains.kotlin.js' version '1.7.20'
+}
+
+group = 'dev.entao'
+version = '0.0.1'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+
+kotlin {
+    js {
+        moduleName = "bootscript"
+        binaries.executable()
+        browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
+                outputFileName = "bootscript.js"
+
+            }
+            webpackTask{
+//                output.libraryTarget = "Plain"
+            }
+        }
+    }
+}
+task copyDist(type: Copy) {
+    from "build/distributions/bootscript.js"
+    from "build/distributions/bootscript.js.map"
+//    into "dist/"
+    into "../bootpage/src/main/resources/bootpage/"
+}
+assemble.finalizedBy(copyDist)
