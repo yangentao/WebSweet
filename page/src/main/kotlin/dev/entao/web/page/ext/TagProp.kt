@@ -3,21 +3,12 @@
 package dev.entao.web.page.ext
 
 import dev.entao.web.base.*
-import dev.entao.web.core.BaseApp
-import dev.entao.web.core.HttpAction
-import dev.entao.web.core.HttpConst
-import dev.entao.web.core.HttpContext
+import dev.entao.web.core.*
 import dev.entao.web.core.controllers.KeyLabelController
-import dev.entao.web.core.uri
 import dev.entao.web.page.dialog.dataConfirm
 import dev.entao.web.page.dialog.dataModal
 import dev.entao.web.page.ext.PageConst.QUERY_FORM
-import dev.entao.web.sql.Decimal
-import dev.entao.web.sql.display
-import dev.entao.web.sql.keyProp
-import dev.entao.web.sql.nameSQL
-import dev.entao.web.sql.refModel
-import dev.entao.web.sql.toMap
+import dev.entao.web.sql.*
 import dev.entao.web.tag.tag.*
 import java.math.BigDecimal
 import kotlin.math.pow
@@ -118,13 +109,13 @@ fun Tag.inputRef(prop: Prop, action: HttpAction = KeyLabelController::search, ke
         button("btn", "btn-outline-secondary", "yet-ref-query") {
             PageData.url attr context.uriActionValues(action, refAn.foreignTable.nameSQL, refAn.keyProp.nameSQL, refAn.displayField)
             PageData.search attr action.paramNames.last()
-            onclick = "client.refQuery(this);"
+            onclick = "pagescript.refQuery(this);"
             +"查找"
         }
         if (inQueryForm || prop.returnType.isMarkedNullable) {
             button("btn", "btn-outline-danger", "yet-ref-clear") {
                 +"清除"
-                onclick = "client.refClear(this);"
+                onclick = "pagescript.refClear(this);"
             }
         }
     }
@@ -143,7 +134,7 @@ fun Tag.selectOptionsDependOn(select: Prop, dependSelect: Prop, byProp: Prop) {
     selTag.setAttr("onval", action.paramNames.last())
     script {
         """
-				client.selectOptionsDependOn('${selTag.requireID()}', '${dependTag.requireID()}')
+				pagescript.selectOptionsDependOn('${selTag.requireID()}', '${dependTag.requireID()}')
 			""".trimIndent()
     }
 }
@@ -436,7 +427,7 @@ fun AnchorTag.fromAction(action: HttpAction, vararg valueArgs: Any) {
     action.findAnnotation<ClientAction>()?.also { ajs ->
         val s = ajs.value
         dataScript = s.ifEmpty {
-            "client.${action.name}(this)"
+            "pagescript.${action.name}(this)"
         }
         href = "#"
         return

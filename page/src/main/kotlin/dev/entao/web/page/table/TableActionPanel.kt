@@ -4,7 +4,6 @@ import dev.entao.web.base.paramNames
 import dev.entao.web.base.userLabel
 import dev.entao.web.core.HttpAction
 import dev.entao.web.page.ext.ConfirmMessage
-import dev.entao.web.page.ext.PageConst
 import dev.entao.web.page.ext.PageData
 import dev.entao.web.page.ext.linkButton
 import dev.entao.web.tag.tag.Tag
@@ -28,7 +27,7 @@ fun Tag.tableActions(vararg actionList: HttpAction) {
                 }
                 script {
                     """
-                        client.table.appendCheckedValues('${this.idx}');
+                        pagescript.appendCheckedValues('${this.idx}');
                     """.trimIndent()
                 }
             }

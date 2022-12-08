@@ -56,7 +56,7 @@ class CheckColumnInfo<T>(context: HttpContext) : TableColumnInfo<T>(context) {
             checkbox("yet-checkall") {
                 script {
                     """
-                        client.table.checkAllRowsById('${this.idx}');
+                        pagescript.checkAllRowsById('${this.idx}');
                     """.trimIndent()
                 }
             }

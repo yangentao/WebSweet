@@ -69,7 +69,7 @@ class UploadDiv(context: HttpContext) : DivTag(context) {
 
         script {
             """
-                client.uploadBindById('${this.idx}');
+                pagescript.uploadBindById('${this.idx}');
             """.trimIndent()
         }
 

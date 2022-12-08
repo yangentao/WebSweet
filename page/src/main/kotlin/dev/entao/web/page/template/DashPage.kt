@@ -3,13 +3,9 @@
 package dev.entao.web.page.template
 
 import dev.entao.web.base.userLabel
-import dev.entao.web.core.HttpAction
-import dev.entao.web.core.HttpContext
-import dev.entao.web.core.HttpController
-import dev.entao.web.core.actionList
+import dev.entao.web.core.*
 import dev.entao.web.core.render.backErrorMessage
 import dev.entao.web.core.render.backSuccessMessage
-import dev.entao.web.core.uri
 import dev.entao.web.page.BootPage
 import dev.entao.web.page.ext.NavGroup
 import dev.entao.web.page.ext.NavItem
@@ -20,7 +16,7 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.hasAnnotation
 
-class DashboardPage(context: HttpContext) : BootPage(context) {
+class DashPage(context: HttpContext) : BootPage(context) {
 
     val topBar: TopBar = TopBar(context)
     val sideBar: SidebarNav = SidebarNav(context)
@@ -47,7 +43,6 @@ class DashboardPage(context: HttpContext) : BootPage(context) {
                         }
                         workspaceDiv = div("row", "py-10") {
                             id = "workspace"
-
                         }
                     }
                 }

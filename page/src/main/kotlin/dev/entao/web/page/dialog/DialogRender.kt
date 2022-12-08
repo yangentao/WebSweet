@@ -116,7 +116,7 @@ class BootDialogTag(context: HttpContext) : DivTag(context) {
                 div("row my-3") {
                     div("col-auto") {
                         button("btn", "btn-primary") {
-                            onclick = "client.dialog.submit(this);"
+                            onclick = "pagescript.submit(this);"
                             val an = action.findAnnotation<Label>()
                             if (an != null && an.value.isNotEmpty()) {
                                 +an.value

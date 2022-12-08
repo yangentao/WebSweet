@@ -10,7 +10,7 @@ fun FormTag.needsValidation() {
     val formId = this.idx
     script {
         """
-            client.formOnSubmitById('$formId');
+            pagescript.formOnSubmitById('$formId');
         """.trimIndent()
     }
 }
@@ -21,12 +21,12 @@ var ButtonTag.dataScript: String
     get() = getAttr(PageData.script)
     set(value) {
         PageData.script attr value
-        onclick = "client.evalElementAttr('${this.idx}')"
+        onclick = "pagescript.evalElementAttr('${this.idx}')"
     }
 
 var AnchorTag.dataScript: String
     get() = getAttr(PageData.script)
     set(value) {
         PageData.script attr value
-        onclick = "client.evalElementAttr('${this.idx}');return false;"
+        onclick = "pagescript.evalElementAttr('${this.idx}');return false;"
     }
