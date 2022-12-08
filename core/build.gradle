@@ -6,7 +6,7 @@ plugins {
 ext {
     nameGroup = 'dev.entao.web'
     nameAF = 'core'
-    nameVersion = '0.2.1'
+    nameVersion = '0.2.2'
     nameGithub = "WebSweet"
     libDesc = 'Kotlin Library '
 }
