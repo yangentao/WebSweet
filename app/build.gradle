@@ -40,7 +40,7 @@ repositories {
         api project(':basic')
         api project(':tag')
         api project(':core')
-        api project(':bootpage')
+        api project(':page')
 //        api 'dev.entao.web:basic:0.2.0'
 //        api 'dev.entao.web:tag:0.2.1'
 //        api 'dev.entao.web:core:0.2.1'

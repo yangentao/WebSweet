@@ -16,12 +16,12 @@ dependencies {
 
 kotlin {
     js {
-        moduleName = "bootscript"
+        moduleName = "pagescript"
         binaries.executable()
         browser {
             commonWebpackConfig {
                 cssSupport.enabled = true
-                outputFileName = "bootscript.js"
+                outputFileName = "pagescript.js"
 
             }
             webpackTask{
@@ -31,9 +31,8 @@ kotlin {
     }
 }
 task copyDist(type: Copy) {
-    from "build/distributions/bootscript.js"
-    from "build/distributions/bootscript.js.map"
-//    into "dist/"
-    into "../bootpage/src/main/resources/bootpage/"
+    from "build/distributions/pagescript.js"
+    from "build/distributions/pagescript.js.map"
+    into "../page/src/main/resources/page/"
 }
 assemble.finalizedBy(copyDist)

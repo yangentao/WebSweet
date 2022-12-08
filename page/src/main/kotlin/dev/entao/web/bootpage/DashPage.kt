@@ -14,7 +14,7 @@ class DashPage(context: HttpContext) : BootPage(context) {
             style {
                 exampleCSS
             }
-            linkCSS(href = "@res/bootpage/dashboard.css".uri)
+            linkCSS(href = "dashboard.css".pageRes)
         }
 
         body {
