@@ -268,32 +268,25 @@ object StorageText {
     }
 }
 
-object StorageInt {
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Int) {
-        window.localStorage[property.name] = value.toString()
+object Storage {
+    inline operator fun <reified T> getValue(thisRef: Any?, property: KProperty<*>): T {
+        val s: String? = window.localStorage[property.name]
+        return when (T::class) {
+            Double::class -> (s?.toDouble() ?: 0.0) as T
+            Int::class -> (s?.toInt() ?: 0) as T
+            Long::class -> (s?.toLong() ?: 0) as T
+            String::class -> (s ?: "") as T
+            else -> throw IllegalArgumentException("NOT support type:${T::class})")
+        }
+
     }
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): Int {
-        return window.localStorage[property.name]?.toInt() ?: 0
-    }
-}
-
-object StorageLong {
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Long) {
-        window.localStorage[property.name] = value.toString()
+    inline operator fun <reified T> setValue(thisRef: Any?, property: KProperty<*>, value: T?) {
+        if (value == null) {
+            window.localStorage.removeItem(property.name)
+        } else {
+            window.localStorage[property.name] = value.toString()
+        }
     }
 
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): Long {
-        return window.localStorage[property.name]?.toLong() ?: 0L
-    }
-}
-
-object StorageDouble {
-    operator fun setValue(thisRef: Any?, property: KProperty<*>, value: Double) {
-        window.localStorage[property.name] = value.toString()
-    }
-
-    operator fun getValue(thisRef: Any?, property: KProperty<*>): Double {
-        return window.localStorage[property.name]?.toDouble() ?: 0.0
-    }
 }

@@ -6,10 +6,6 @@ import org.w3c.dom.HTMLDivElement
 import org.w3c.dom.HTMLElement
 import org.w3c.dom.events.Event
 
-
-
-
-
 fun bootDialog(block: BootDialog.() -> Unit): BootDialog {
     return BootDialog().apply(block)
 }
@@ -86,7 +82,6 @@ class BootDialog {
     fun buttonPrimary(title: String, block: () -> Unit) {
         modalFooter.button("btn btn-primary") {
             this.attr("data-bs-dismiss", "modal")
-//			text(title)
             textContent = title
             on("click") {
                 block()

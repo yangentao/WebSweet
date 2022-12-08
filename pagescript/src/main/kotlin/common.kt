@@ -40,19 +40,19 @@ fun String.keep(n: Int): String {
 }
 
 //fun buildURL(url:String, )
-class URLBuilder(urlString: String) {
+class URLBuilder(url: String) {
     val url: String
     val searchParams: URLSearchParams
 
     init {
-        val idx = urlString.indexOf('?')
-        searchParams = if (idx > 0) {
-            url = urlString.substring(0, idx)
-            URLSearchParams(urlString.substring(idx + 1))
-        } else {
-            url = urlString
+        this.url = url.substringBefore('?')
+        val params: String = url.substringAfter('?', "")
+        searchParams = if (params.isEmpty()) {
             URLSearchParams()
+        } else {
+            URLSearchParams(params)
         }
+
     }
 
     fun append(name: String, value: String) {

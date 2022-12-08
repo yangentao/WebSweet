@@ -21,7 +21,7 @@ import kotlin.js.Json
 @JsName("HttpResponse")
 class HttpResponse(val xhr: XMLHttpRequest) {
 
-    val OK: Boolean get() = xhr.status in 200.toShort()..299.toShort()
+    val OK: Boolean get() = status in 200..299
     val status: Int get() = xhr.status.toInt()
     val msg: String get() = xhr.statusText
     val contentType: String = xhr.getResponseHeader("Content-Type") ?: ""
@@ -141,9 +141,11 @@ class HttpPost(url: String) : HttpRequest(url, "POST") {
             bodyData != null -> {
                 bodyData
             }
+
             sp.isNotEmpty() -> {
                 sp
             }
+
             else -> null
         }
         xhr.send(dd)
@@ -155,7 +157,7 @@ typealias HttpResultCallback = (HttpResponse) -> Unit
 
 @JsExport
 @JsName("HttpRequest")
-abstract class HttpRequest(urlString: String, val method:String) {
+abstract class HttpRequest(urlString: String, val method: String) {
     val xhr = XMLHttpRequest().apply {
         timeout = 15_000
     }
@@ -168,15 +170,13 @@ abstract class HttpRequest(urlString: String, val method:String) {
     private var loadCallback: HttpResultCallback? = null
 
     init {
-        val idx = urlString.indexOf('?')
-        searchParams = if (idx > 0) {
-            url = urlString.substring(0, idx)
-            URLSearchParams(urlString.substring(idx + 1))
-        } else {
-            url = urlString
+        this.url = urlString.substringBefore('?')
+        val params: String = urlString.substringAfter('?', "")
+        searchParams = if (params.isEmpty()) {
             URLSearchParams()
+        } else {
+            URLSearchParams(params)
         }
-
         xhr.addEventListener("load", {
             val resp = HttpResponse(xhr)
             if (resp.OK) {

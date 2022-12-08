@@ -49,7 +49,6 @@ fun showLargeImageById(eid: String): Boolean {
                     src = url
                 }
             }
-
         }
     }
     dlg.show()
